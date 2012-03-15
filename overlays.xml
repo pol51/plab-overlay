@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>                                                                                                     
+<repositories version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+    <name>pol-overlay</name>
+    <description>PoL's Overlay</description>
+    <owner>
+      <email>plabedan@gmail.com</email>
+    </owner>
+    <source type="git">git@vps.labedan.fr:pol-overlay.git</source>
+  </repo>
+</repositories>
