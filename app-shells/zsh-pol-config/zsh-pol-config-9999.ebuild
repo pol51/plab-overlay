@@ -22,11 +22,4 @@ src_install() {
   insinto /etc/zsh
   doins -r *
   eend $? || "ERROR: cannot install zsh config"
-  
-  ebegin "Set env for pol's zsh config..."
-  cat <<-EOF > "${T}/99zsh"
-	CONFIG_PROTECT_MASK=/etc/zsh
-	EOF
-  doenvd "${T}/99zsh"
-  eend $? || die "ERROR: failed to set zsh environment"
 }
