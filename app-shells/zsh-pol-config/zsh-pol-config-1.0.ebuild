@@ -1,25 +1,21 @@
 EAPI=4
-inherit eutils git-2
+inherit eutils
 
 DESCRIPTION="zsh pol's config"
-
-EGIT_REPO_URI="git@vps.labedan.fr:zsh.git"
-EGIT_PROJECT="zsh"
-EGIT_BRANCH="master"
 
 SRC_URI=""
 SLOT="0"
 
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 RDEPEND="app-shells/zsh-completion"
 DEPEND=""
 
-S="${WORKDIR}/${PN}"
+S="${WORKDIR}"
 
 src_install() {
   ebegin "Copy pol's zsh config..."
   insinto /etc/zsh
-  doins -r *
+  doins -r ${FILESDIR}/*
   eend $? || "ERROR: cannot install zsh config"
 }

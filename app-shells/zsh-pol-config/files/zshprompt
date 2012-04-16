@@ -1,0 +1,57 @@
+setopt prompt_subst
+autoload colors
+colors
+autoload -Uz vcs_info
+
+for COLOR in RED GREEN BLUE YELLOW WHITE BLACK CYAN; do
+    eval PR_$COLOR='%{$fg[${(L)COLOR}]%}'
+    eval PR_BRIGHT_$COLOR='%{$fg_bold[${(L)COLOR}]%}'
+done
+PR_RESET="%{%b%s%u$reset_color%}"
+
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+precmd_functions+='update_prompt'
+preexec_functions+='on_preexec_git_update'
+chpwd_functions+='update_prompt'
+
+function on_preexec_git_update {
+  case "$1" in 
+    git*)
+      update_prompt
+    ;;
+  esac
+}
+
+function make_prompt {
+  local c_time=$PR_BRIGHT_CYAN
+  local c_user=$1
+  local c_host=$2
+  local c_path=$PR_GREEN
+  local c_git=$PR_YELLOW
+  local c_sep=$PR_BRIGHT_YELLOW
+  local c_r=$PR_RESET
+  
+  local time="${c_time}%T${c_r}"
+  local user="${c_user}%n${c_r}"
+  local at="${c_sep}@${c_r}"
+  local host="${c_host}%m${c_r}"
+  local cwd="${c_path}%B%~%b${c_r}"
+  local git="${c_git}$GIT_BRANCH${c_r}"
+  local invite="${c_sep}%#${c_r}"
+  
+  PROMPT="${time} ${user}${at}${host} ${cwd}${git}${invite} "
+}
+
+function update_prompt {
+  GIT_BRANCH=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'`
+  if [ "`id -u`" -eq 0 ]; then
+    make_prompt $PR_BRIGHT_BLUE $PR_BRIGHT_WHITE
+  else
+    make_prompt $PR_BRIGHT_RED $PR_BRIGHT_WHITE
+  fi
+}
+
+update_prompt
