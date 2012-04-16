@@ -11,6 +11,8 @@ KEYWORDS="amd64"
 RDEPEND="app-shells/zsh-completion"
 DEPEND=""
 
+S="${WORKDIR}"
+
 src_install() {
   ebegin "Copy pol's zsh config..."
   insinto /etc/zsh
