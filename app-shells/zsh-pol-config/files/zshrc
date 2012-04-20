@@ -23,10 +23,17 @@ alias less='less -q'
 alias df='df -h'
 alias du='du -h'
 
+alias http-server='python -m SimpleHTTPServer'
+
+# C/C++
+alias bcpp='bcpp -s -i 2'
+
 # Gentoo
 alias emerge='emerge -t --jobs=4'
+alias unmerge='emerge --unmerge'
 alias update='layman -S && emerge --sync && eix-update'
 alias upgrade='emerge --keep-going --ask --update --newuse --deep --oneshot world'
+alias up='eix-sync && upgrade'
 alias rebuild_world='emerge --keep-going world'
 alias which-package='equery belongs'
 alias which-use='equery hasuse'
