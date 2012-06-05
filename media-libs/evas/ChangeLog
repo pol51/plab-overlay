@@ -1,0 +1,35 @@
+# ChangeLog for media-libs/evas
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+  17 Dec 2010; Thomas Sachau (Tommy[D]) <tommy@gentoo.org>
+  -evas-1.0.0_beta.ebuild:
+  Drop old
+
+  06 Oct 2010; Thomas Sachau (Tommy[D]) <tommy@gentoo.org>
+  -evas-0.9.9.49898.ebuild:
+  Drop old snapshot of evas
+
+*evas-1.0.0_beta (03 Oct 2010)
+
+  03 Oct 2010; Thomas Sachau (Tommy[D]) <tommy@gentoo.org>
+  +evas-1.0.0_beta.ebuild:
+  Add beta release for evas
+
+  28 Aug 2010; Thomas Sachau (Tommy[D]) <tommy@gentoo.org> evas-9999.ebuild:
+  Merge ebuild from efl, add static-libs USE flag
+
+*evas-0.9.9.063 (20 Dec 2009)
+
+  20 Dec 2009; Thomas Sachau (Tommy[D]) <tommy@gentoo.org>
+  +evas-0.9.9.063.ebuild:
+  Version bump snapshot
+
+  31 Dec 2008; Thomas Sachau (Tommy[D]) <tommy@gentoo.org>
+  evas-0.9.9.050.ebuild, evas-9999.ebuild:
+  Remove cairo useflag and disable cairo, broken and not supported, move
+  pkg-config to DEPEND
+
+  30 Nov 2008; Mike Frysinger <vapier@gentoo.org> +evas-0.9.9.050.ebuild:
+  Version bump.
+
