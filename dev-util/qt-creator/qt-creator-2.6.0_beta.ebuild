@@ -20,7 +20,6 @@ else
   MY_V=${PV/_/-}
 	MY_P=${PN}-${MY_V}-src
   SRC_URI="http://origin.releases.qt-project.org/qtcreator/${MY_V}/${MY_P}.tar.gz"
-  einfo "SRC_URI ${SRC_URI}"
 	S=${WORKDIR}/${MY_P}
 fi
 
