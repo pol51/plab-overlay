@@ -11,6 +11,8 @@ HOMEPAGE="http://www.enlightenment.org/"
 
 IUSE=""
 
+KEYWORDS="~amd64"
+
 RDEPEND=">=dev-libs/ecore-1.7.0
 	>=dev-libs/eet-1.7.0
 	>=dev-libs/efreet-1.7.0
