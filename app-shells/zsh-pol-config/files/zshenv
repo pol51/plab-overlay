@@ -10,6 +10,9 @@ export PATH="/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/usr/bin/X11
 export LANG="fr_FR.UTF-8"
 export LANGUAGE="fr_FR:fr"
 
+# 256 colors
+export TERM="xterm-256color"
+
 # Viewer/Editeur par defaut (pour Crontab, CVS,...)
 export VISUAL=vim
 export EDITOR=vim

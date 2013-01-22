@@ -15,7 +15,7 @@ S="${WORKDIR}"
 
 src_install() {
   ebegin "Copy pol's zsh config..."
-  insinto /etc/zsh
-  doins -r ${FILESDIR}/*
+  	insinto /etc/zsh
+  	doins -r ${FILESDIR}/*
   eend $? || "ERROR: cannot install zsh config"
 }

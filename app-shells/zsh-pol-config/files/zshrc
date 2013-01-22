@@ -3,6 +3,7 @@
 ################################################################################
 
 # ls
+alias l1='/bin/ls -1hNT 0 --color=auto'
 alias ls='ls -hNFT 0 --color=auto'
 alias ll='ls -l'
 alias la='ls -a'
@@ -29,16 +30,18 @@ alias http-server='python -m SimpleHTTPServer'
 alias bcpp='bcpp -s -i 2'
 
 # Gentoo
-alias emerge='emerge -t --jobs=4'
+alias emerge='emerge --tree --jobs=8'
 alias unmerge='emerge --unmerge'
-alias update='layman -S && emerge --sync && eix-update'
-alias upgrade='emerge --keep-going --ask --update --newuse --deep --oneshot world'
-alias up='eix-sync && upgrade'
+alias update='eix-sync'
+alias upgrade='emerge --keep-going --ask --update --newuse --deep world'
+alias up-live='emerge --oneshot @live-rebuild'
+alias up='update && upgrade'
 alias rebuild_world='emerge --keep-going world'
 alias which-package='equery belongs'
 alias which-use='equery hasuse'
 alias build-kernel='genkernel --menuconfig all'
-alias dg='for f in *.ebuild; do; ebuild $f digest; done'
+alias dg='ebuild $(ls -1 | head -n1) digest'
+alias chk='for i in `eix "-I*" --format "<installedversions:NAMEVERSION>" --only-in-overlay`; do equery k $i; done'
 
 ################################################################################
 # prompt and completion
