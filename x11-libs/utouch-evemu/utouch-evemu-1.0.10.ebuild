@@ -3,7 +3,7 @@
 # $Header: $
 
 DESCRIPTION="Event Emulation for the uTouch Stack"
-SRC_URI="http://launchpad.net/utouch-evemu/trunk/v${PV}/+download/utouch-evemu-${PV}.tar.gz"
+SRC_URI="https://launchpad.net/evemu/trunk/evemu-${PV}/+download/evemu-${PV}.tar.gz"
 HOMEPAGE="https://launchpad.net/utouch-evemu"
 KEYWORDS="~x86 ~amd64"
 SLOT="0" 
