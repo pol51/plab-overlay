@@ -5,19 +5,23 @@
 EAPI=5
 inherit eutils git-2
 
+IUSE="dev"
+
 DESCRIPTION="Data package for colobot (Colonize with Bots)"
 HOMEPAGE="http://colobot.info/"
 SRC_URI=""
 
 EGIT_REPO_URI="https://github.com/colobot/colobot-data.git"
 EGIT_PROJECT="colobot-data"
-EGIT_BRANCH="master"
+if use dev; then
+  EGIT_BRANCH="dev"
+else
+  EGIT_BRANCH="master"
+fi
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="amd64"
-
-IUSE=""
 
 DEPEND=""
 RDEPEND="${DEPEND}"
