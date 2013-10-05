@@ -42,6 +42,7 @@ alias which-use='equery hasuse'
 alias build-kernel='genkernel --menuconfig all'
 alias dg='ebuild $(ls -1 *.ebuild | head -n1) manifest'
 alias chk='for i in `eix "-I*" --format "<installedversions:NAMEVERSION>" --only-in-overlay`; do equery k $i; done'
+alias ls-preserved='portageq list_preserved_libs /'
 
 ################################################################################
 # prompt and completion
@@ -57,9 +58,7 @@ prompt gentoo
 source /etc/zsh/zshprompt
 
 # completion
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}'
-zstyle ':completion:*' max-errors 3 numeric
-zstyle ':completion:*' use-compctl false
+zstyle ':completion::complete:*' use-cache 1
 
 # options
 setopt nullglob           # remove non-matching jokers instead of failing
