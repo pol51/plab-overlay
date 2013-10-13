@@ -32,6 +32,7 @@ src_install()
   dosym /opt/${PN}/bin/pycharm.sh /usr/bin/${PN}
 
   # desktop entry
-	doicon "bin/${PN}.png"
+	mv "bin/pycharm.png" "bin/${PN}.png"
+  doicon "bin/${PN}.png"
 	make_desktop_entry ${PN} "${PN}" "${PN}"
 }
