@@ -19,6 +19,21 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/${PN}"
 
 src_install() {
-  insinto /opt/android-studio
-  doins -r *
+	# copy files
+  dodir /opt/${PN}
+	insinto /opt/${PN}
+	doins -r *
+
+  # fix perms
+  fperms a+x /opt/${PN}/bin/studio.sh || die "fperms failed"
+	fperms a+x /opt/${PN}/bin/fsnotifier || die "fperms failed"
+	fperms a+x /opt/${PN}/bin/fsnotifier64 || die "fperms failed"
+	fperms a+x /opt/${PN}/bin/inspect.sh || die "fperms failed"
+	
+  # symlink
+  dosym /opt/${PN}/bin/studio.sh /usr/bin/${PN}
+
+  # desktop entry
+	doicon "bin/idea.png"
+	make_desktop_entry ${PN} "Android Studio" /opt/${PN}/bin/idea.png
 }

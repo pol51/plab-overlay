@@ -34,5 +34,5 @@ src_install()
   # desktop entry
 	mv "bin/pycharm.png" "bin/${PN}.png"
   doicon "bin/${PN}.png"
-	make_desktop_entry ${PN} "${PN}" "${PN}"
+	make_desktop_entry ${PN} "PyCharm (Professional)" /opt/${PN}/bin/${PN}.png
 }
