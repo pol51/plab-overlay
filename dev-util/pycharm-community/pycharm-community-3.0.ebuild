@@ -13,7 +13,7 @@ RDEPEND="${DEPEND}"
 
 SLOT="0"
 
-S="${WORKDIR}/pycharm-${PV}"
+S="${WORKDIR}/pycharm-community-${PV}"
 
 src_install()
 {	
