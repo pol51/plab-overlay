@@ -40,6 +40,7 @@ DOCS=( "README" )
 
 src_prepare() {
 	epatch "${FILESDIR}"/"${P}"-check-bfd.h.patch
+  epatch "${FILESDIR}"/"${P}"-fix_install.patch
 
 	#include dir change in json-c-0.10 #462632 and #452234
 	if has_version ">=dev-libs/json-c-0.10" ; then
