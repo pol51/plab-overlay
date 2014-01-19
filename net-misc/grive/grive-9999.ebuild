@@ -23,14 +23,15 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	dev-libs/boost:=
+	dev-libs/boost
 	dev-libs/expat
-	dev-libs/json-c:=
-	dev-libs/libgcrypt:=
+	dev-libs/json-c
+	dev-libs/libgcrypt
 	net-misc/curl
 	sys-devel/binutils
 	sys-libs/glibc
 	sys-libs/zlib
+  dev-libs/yajl
 	"
 
 DEPEND="${RDEPEND}"
