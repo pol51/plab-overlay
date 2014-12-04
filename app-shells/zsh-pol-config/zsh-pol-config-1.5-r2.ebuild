@@ -8,7 +8,10 @@ SLOT="0"
 
 KEYWORDS="amd64"
 
-RDEPEND="app-shells/gentoo-zsh-completion"
+RDEPEND="
+  app-shells/zsh-completions
+  app-shells/gentoo-zsh-completions
+"
 DEPEND=""
 
 S="${WORKDIR}"
