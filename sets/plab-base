@@ -1,0 +1,8 @@
+app-editors/vim
+app-misc/screen
+app-shells/zsh-pol-config
+dev-vcs/git
+sys-apps/most
+sys-kernel/genkernel
+sys-process/htop
+virtual/ssh -minimal
