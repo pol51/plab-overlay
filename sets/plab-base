@@ -1,8 +1,17 @@
+app-admin/sudo
 app-editors/vim
 app-misc/screen
+app-portage/eix
+app-portage/euscan
+app-portage/gentoolkit
+app-portage/layman
+app-portage/smart-live-rebuild
 app-shells/zsh-pol-config
 dev-vcs/git
+dev-util/strace
+sys-apps/mlocate
+sys-apps/moreutils
 sys-apps/most
 sys-kernel/genkernel
 sys-process/htop
-virtual/ssh -minimal
+virtual/ssh
