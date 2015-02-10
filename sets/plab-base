@@ -7,8 +7,10 @@ app-portage/gentoolkit
 app-portage/layman
 app-portage/smart-live-rebuild
 app-shells/zsh-pol-config
+app-text/tree
 dev-vcs/git
 dev-util/strace
+net-misc/keychain
 sys-apps/mlocate
 sys-apps/moreutils
 sys-apps/most
