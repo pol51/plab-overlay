@@ -6,7 +6,7 @@ EAPI=5
 PYTHON_COMPAT=( python{2_5,2_6,2_7} )
 
 EGIT_REPO_URI="https://github.com/pol51/${PN}.git"
-EGIT_BRANCH="3.4"
+EGIT_BRANCH="llvm-3.4"
 
 inherit base python-any-r1 git-r3
 
