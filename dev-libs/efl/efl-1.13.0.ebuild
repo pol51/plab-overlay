@@ -158,7 +158,6 @@ DEPEND="
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
-	epatch "${WORKDIR}"/efl-1.12.2-lauch_via_logind_or_root_privilege.patch
 	eautoreconf
 	enlightenment_src_prepare
 }
