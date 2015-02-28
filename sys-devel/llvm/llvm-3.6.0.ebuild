@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-devel/llvm/llvm-3.6.0_rc4.ebuild,v 1.1 2015/02/23 10:38:15 voyageur Exp $
 
 EAPI=5
 
@@ -18,7 +17,7 @@ SRC_URI="http://llvm.org/releases/${PV}/${P}.src.tar.xz
 	!doc? ( http://dev.gentoo.org/~voyageur/distfiles/${PN}-3.6.0-manpages.tar.bz2 )"
 
 LICENSE="UoI-NCSA"
-SLOT="0/3.5"
+SLOT="0/3.6"
 KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86 ~amd64-fbsd ~x86-fbsd ~x64-freebsd ~amd64-linux ~arm-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos"
 IUSE="clang debug doc gold libedit +libffi multitarget ncurses ocaml python
 	+static-analyzer test xml video_cards_radeon
