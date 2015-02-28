@@ -10,7 +10,6 @@ kde-frameworks/solid
 media-fonts/corefonts
 media-fonts/dejavu
 media-video/mpv
-www-client/google-chrome-unstable
 x11-apps/xkill
 x11-misc/arandr
 x11-terms/xterm
