@@ -29,6 +29,10 @@ RDEPEND="
 		x11-libs/cairo )"
 DEPEND="${RDEPEND}"
 
+src_prepare() {
+	epatch "${FILESDIR}"/v1.13.0-build_with_poppler_greater_or_equal_to_0.31.patch
+}
+
 src_configure() {
 	local MY_ECONF="$(use_enable gstreamer gstreamer1)
 		$(use_enable pdf poppler)
