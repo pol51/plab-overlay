@@ -158,6 +158,7 @@ DEPEND="
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
+  ! use systemd && epatch "${FILESDIR}"/efl-no-logind.patch
 	eautoreconf
 	enlightenment_src_prepare
 }
