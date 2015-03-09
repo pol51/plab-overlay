@@ -1,0 +1,18 @@
+--- a/src/Makefile_Ecore_Drm.am	2015-03-09 10:02:54.105966903 +0100
++++ b/src/Makefile_Ecore_Drm.am	2015-03-09 10:03:26.456966324 +0100
+@@ -18,14 +18,10 @@
+ lib/ecore_drm/ecore_drm_device.c \
+ lib/ecore_drm/ecore_drm_launcher.c \
+ lib/ecore_drm/ecore_drm_dbus.c \
++lib/ecore_drm/ecore_drm_logind.c \
+ lib/ecore_drm/ecore_drm.c \
+ lib/ecore_drm/ecore_drm_private.h
+ 
+-if HAVE_SYSTEMD_LOGIN
+-lib_ecore_drm_libecore_drm_la_SOURCES += \
+-lib/ecore_drm/ecore_drm_logind.c
+-endif
+-
+ lib_ecore_drm_libecore_drm_la_CPPFLAGS = \
+   -I$(top_builddir)/src/lib/efl \
+   @ECORE_DRM_CFLAGS@ \
