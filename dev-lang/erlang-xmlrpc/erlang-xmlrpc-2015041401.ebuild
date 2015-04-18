@@ -16,7 +16,7 @@ fi
 KEYWORDS="amd64"
 SLOT="0"
 
-DEPEND=">=dev-lang/erlang-17"
+DEPEND="dev-lang/erlang"
 RDEPEND="${DEPEND}"
 
 src_compile() {
