@@ -1,9 +1,6 @@
 @plab-base
 app-editors/scite
-kde-apps/kdebase-meta
 kde-apps/konsole
-kde-apps/okteta
-kde-base/kdm
 kde-base/kstyles
 kde-base/liboxygenstyle
 kde-frameworks/solid
@@ -12,7 +9,9 @@ media-fonts/dejavu
 media-video/mpv
 x11-apps/xkill
 x11-misc/arandr
+x11-misc/sddm
 x11-terms/xterm
 x11-themes/oxygen-gtk:2
 x11-themes/oxygen-gtk:3
 x11-wm/enlightenment:0.17
+
