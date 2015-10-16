@@ -1,0 +1,95 @@
+From 871bd69b4f00347b3533f54c665b1179f5c33702 Mon Sep 17 00:00:00 2001
+From: Sander Sweers <sander.sweers@gmail.com>
+Date: Sat, 7 Sep 2013 13:02:00 +0200
+Subject: [PATCH 1/2] Fix PIL imports
+
+---
+ src/ocrfeeder/feeder/imageManipulation.py | 2 +-
+ src/ocrfeeder/feeder/layoutAnalysis.py    | 2 +-
+ src/ocrfeeder/studio/dataHolder.py        | 2 +-
+ src/ocrfeeder/studio/widgetPresenter.py   | 2 +-
+ src/ocrfeeder/util/graphics.py            | 2 +-
+ src/ocrfeeder/util/lib.py                 | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/ocrfeeder/feeder/imageManipulation.py b/src/ocrfeeder/feeder/imageManipulation.py
+index c7f01ec..ad94cf1 100644
+--- a/src/ocrfeeder/feeder/imageManipulation.py
++++ b/src/ocrfeeder/feeder/imageManipulation.py
+@@ -21,7 +21,7 @@
+ from ocrfeeder.util.lib import debug
+ 
+ import gettext
+-import Image, ImageDraw
++from PIL import Image, ImageDraw
+ import os.path
+ from ocrfeeder.util import graphics
+ import sys
+diff --git a/src/ocrfeeder/feeder/layoutAnalysis.py b/src/ocrfeeder/feeder/layoutAnalysis.py
+index edf69c7..80770e2 100644
+--- a/src/ocrfeeder/feeder/layoutAnalysis.py
++++ b/src/ocrfeeder/feeder/layoutAnalysis.py
+@@ -23,7 +23,7 @@ from ocrfeeder.util import graphics
+ from ocrfeeder.util.constants import OCRFEEDER_DEBUG, DTP
+ from ocrfeeder.studio.dataHolder import DataBox
+ from imageManipulation import ImageProcessor
+-import Image
++from PIL import Image
+ import re
+ import math
+ 
+diff --git a/src/ocrfeeder/studio/dataHolder.py b/src/ocrfeeder/studio/dataHolder.py
+index 084a345..df65f7a 100644
+--- a/src/ocrfeeder/studio/dataHolder.py
++++ b/src/ocrfeeder/studio/dataHolder.py
+@@ -20,7 +20,7 @@
+ 
+ import os.path
+ from ocrfeeder.util import graphics
+-import Image
++from PIL import Image
+ import gobject
+ from ocrfeeder.util.graphics import getImagePrintSize, getImageResolution
+ from ocrfeeder.util import TEXT_TYPE, IMAGE_TYPE, ALIGN_LEFT, lib
+diff --git a/src/ocrfeeder/studio/widgetPresenter.py b/src/ocrfeeder/studio/widgetPresenter.py
+index 0c447ab..a12c56a 100644
+--- a/src/ocrfeeder/studio/widgetPresenter.py
++++ b/src/ocrfeeder/studio/widgetPresenter.py
+@@ -26,7 +26,7 @@ from ocrfeeder.util.asyncworker import AsyncWorker
+ from ocrfeeder.util.constants import *
+ from ocrfeeder.util.graphics import convertPixbufToImage
+ from enchant.checker import SpellChecker
+-import Image
++from PIL import Image
+ import gettext
+ import gobject
+ import goocanvas
+diff --git a/src/ocrfeeder/util/graphics.py b/src/ocrfeeder/util/graphics.py
+index fc2049a..b93fc5f 100644
+--- a/src/ocrfeeder/util/graphics.py
++++ b/src/ocrfeeder/util/graphics.py
+@@ -19,7 +19,7 @@
+ ###########################################################################
+ 
+ from lib import debug
+-import Image
++from PIL import Image
+ import gtk
+ import math
+ 
+diff --git a/src/ocrfeeder/util/lib.py b/src/ocrfeeder/util/lib.py
+index c95318d..8fed1f2 100644
+--- a/src/ocrfeeder/util/lib.py
++++ b/src/ocrfeeder/util/lib.py
+@@ -20,7 +20,7 @@
+ 
+ import os
+ import mimetypes
+-import Image
++from PIL import Image
+ import tempfile
+ import gtk
+ import math
+-- 
+1.8.3.2
+
