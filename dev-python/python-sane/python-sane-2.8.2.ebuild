@@ -17,4 +17,4 @@ KEYWORDS="~amd64"
 IUSE=""
 
 RDEPEND=""
-DEPEND="${RDEPEND}"
+DEPEND="${RDEPEND} media-gfx/sane-backends"
