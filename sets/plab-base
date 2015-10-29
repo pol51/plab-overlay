@@ -15,6 +15,5 @@ net-misc/keychain
 sys-apps/mlocate
 sys-apps/moreutils
 sys-apps/most
-sys-kernel/genkernel-next
 sys-process/htop
 virtual/ssh
