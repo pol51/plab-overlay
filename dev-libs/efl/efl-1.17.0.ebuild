@@ -23,7 +23,7 @@ inherit enlightenment pax-utils
 DESCRIPTION="Enlightenment Foundation Libraries all-in-one package"
 
 LICENSE="BSD-2 GPL-2 LGPL-2.1 ZLIB"
-IUSE="+bmp debug drm +eet egl fbcon +fontconfig fribidi gif gles glib gnutls gstreamer harfbuzz +ico ibus jpeg2k libressl neon oldlua opengl ssl physics pixman +png +ppm +psd pulseaudio scim sdl sound systemd tga tiff tslib v4l2 valgrind wayland webp X xim xine xpm"
+IUSE="+bmp debug drm +eet egl fbcon +fontconfig +fribidi gif gles glib gnutls +gstreamer harfbuzz +ico ibus jpeg2k libressl +multisense neon oldlua opengl ssl +physics pixman +png +ppm +psd pulseaudio +scim sdl sound systemd tga tiff tslib v4l2 valgrind wayland webp X +xim xine xpm"
 
 REQUIRED_USE="
 	pulseaudio?	( sound )
@@ -191,7 +191,7 @@ src_configure() {
 		$(use_with X x)
 		--with-opengl=$(usex opengl full $(usex gles es none))
 		--with-glib=$(usex glib)
-		--enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-aba
+		--enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-abb
 
 		$(use_enable bmp image-loader-bmp)
 		$(use_enable bmp image-loader-wbmp)
@@ -208,6 +208,7 @@ src_configure() {
 		$(use_enable ico image-loader-ico)
 		$(use_enable ibus)
 		$(use_enable jpeg2k image-loader-jp2k)
+		$(use_enable multisense)
 		$(use_enable neon)
 		$(use_enable nls)
 		$(use_enable oldlua lua-old)
@@ -246,7 +247,6 @@ src_configure() {
 		--disable-gstreamer
 		--enable-xinput2
 		--disable-xinput22
-		--disable-multisense
 		--enable-libmount
 
 		# external lz4 support currently broken because of unstable ABI/API
