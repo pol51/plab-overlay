@@ -46,10 +46,6 @@ DEPEND="${RDEPEND}
 
 DOCS=( AUTHORS ChangeLog NEWS README README.Linux )
 
-PATCHES=(
-	"${FILESDIR}/${PN}-1.4.2-lirc-detect.patch" # detect lirc
-)
-
 src_configure() {
 	local myeconfargs=(
 		$(use_with video_cards_nvidia xnvctrl)
