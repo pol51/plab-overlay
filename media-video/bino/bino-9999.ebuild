@@ -16,7 +16,6 @@ EGIT_BRANCH="master"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE="debug doc libav lirc"
 
 IUSE_VIDEO_CARDS="
