@@ -6,13 +6,11 @@ EAPI=5
 
 AUTOTOOLS_AUTORECONF="1"
 
-inherit autotools-utils flag-o-matic git-2
+inherit autotools-utils flag-o-matic
 
 DESCRIPTION="Stereoscopic and multi-display media player"
 HOMEPAGE="http://bino3d.org/"
-EGIT_REPO_URI="git://git.savannah.nongnu.org/bino.git"
-EGIT_PROJECT="${PN}"
-EGIT_BRANCH="master"
+SRC_URI="http://download.savannah.gnu.org/releases/${PN}/${P}.tar.xz"
 
 LICENSE="GPL-3"
 SLOT="0"
