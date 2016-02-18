@@ -52,6 +52,7 @@ src_configure() {
 		$(use_enable debug)
 		--without-equalizer
 		--htmldir=/usr/share/doc/${PF}/html
+    --with-qt-version=4
 	)
 
 	use video_cards_nvidia && append-cppflags "-I/usr/include/NVCtrl" \
