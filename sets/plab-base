@@ -11,6 +11,7 @@ app-shells/zsh-pol-config
 app-text/tree
 dev-vcs/git
 dev-util/strace
+net-misc/httpie
 net-misc/keychain
 sys-apps/mlocate
 sys-apps/moreutils
