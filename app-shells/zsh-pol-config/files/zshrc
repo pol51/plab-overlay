@@ -6,6 +6,7 @@
 alias l1='/bin/ls -1hNT 0 --color=auto'
 alias ls='ls -hNFT 0 --color=auto'
 alias ll='ls -l'
+alias lt='ls -ltr'
 alias la='ls -a'
 alias lla='ls -la'
 
@@ -29,8 +30,10 @@ alias http-server='python -m SimpleHTTPServer'
 # C/C++
 alias bcpp='bcpp -s -i 2'
 
+alias make='make -j$(echo "scale=0;$(nproc)*1.5/1" | bc)'
+
 # Gentoo
-alias emerge='emerge --tree --jobs=8'
+alias emerge='emerge --tree --jobs=$(A=$(nproc) B=$(( A / 2 )); echo $(( B < 1 ? 1 : B )))'
 alias unmerge='emerge --unmerge'
 alias upgrade='emerge --keep-going --ask --newuse --update --deep @world'
 alias build-kernel='genkernel --menuconfig all'

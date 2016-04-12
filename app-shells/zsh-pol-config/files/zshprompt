@@ -31,6 +31,7 @@ function make_prompt {
   local c_host=$2
   local c_path=$PR_GREEN
   local c_git=$PR_YELLOW
+  local c_virtualenv=$PR_BRIGHT_BLACK
   local c_sep=$PR_BRIGHT_YELLOW
   local c_r=$PR_RESET
   
@@ -42,7 +43,13 @@ function make_prompt {
   local git="${c_git}$GIT_BRANCH${c_r}"
   local invite="${c_sep}%#${c_r}"
   
-  PROMPT="${time} ${user}${at}${host} ${cwd}${git}${invite} "
+  if [ -z ${VIRTUAL_ENV+x} ]; then
+    local virtualenv=""
+  else
+    local virtualenv=" ${c_virtualenv}[$(basename $VIRTUAL_ENV)]${c_r}"
+  fi
+  
+  PROMPT="${time} ${user}${at}${host} ${cwd}${virtualenv}${git}${invite} "
 }
 
 function update_prompt {
