@@ -1,6 +1,5 @@
 app-admin/eclean-kernel
 app-admin/sudo
-app-editors/vim
 app-misc/screen
 app-portage/eix
 app-portage/euscan
@@ -9,12 +8,16 @@ app-portage/layman
 app-portage/smart-live-rebuild
 app-shells/zsh-pol-config
 app-text/tree
+app-vim/colorschemes
 dev-vcs/git
+dev-util/ltrace
 dev-util/strace
 net-misc/httpie
 net-misc/keychain
 sys-apps/mlocate
 sys-apps/moreutils
-sys-apps/most
+sys-fs/dfc
+sys-fs/ncdu
 sys-process/htop
+sys-process/lsof
 virtual/ssh
