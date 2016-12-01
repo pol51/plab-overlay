@@ -7,8 +7,8 @@ kde-apps/ark
 kde-apps/dolphin:5
 kde-apps/filelight
 kde-apps/konsole
-kde-base/kstyles
-kde-base/liboxygenstyle
+kde-plasma/kstyles
+kde-plasma/liboxygenstyle
 kde-frameworks/solid
 media-fonts/corefonts
 media-fonts/dejavu

@@ -1,5 +1,5 @@
 net-analyzer/mtr
-net-analyzer/netcat
+net-analyzer/netcat6
 net-analyzer/nload
 net-analyzer/nmap
 net-analyzer/wireshark
