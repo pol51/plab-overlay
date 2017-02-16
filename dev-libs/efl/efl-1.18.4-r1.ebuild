@@ -1,8 +1,8 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI="6"
+EAPI="5"
 
 MY_P=${P/_/-}
 
@@ -23,8 +23,8 @@ inherit enlightenment pax-utils
 DESCRIPTION="Enlightenment Foundation Libraries all-in-one package"
 
 LICENSE="BSD-2 GPL-2 LGPL-2.1 ZLIB"
-IUSE="+bmp debug drm +eet egl fbcon +fontconfig fribidi gif gles glib gnutls gstreamer harfbuzz +ico ibus jpeg2k libressl neon oldlua opengl ssl physics pixman +png +ppm +psd pulseaudio scim sdl sound systemd tga tiff tslib v4l valgrind wayland webp X xim xine xpm"
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 sh sparc x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x86-interix ~x86-solaris ~x64-solaris"
+IUSE="+bmp debug drm +eet egl fbcon +fontconfig fribidi gif gles glib gnutls gstreamer harfbuzz +ico ibus jpeg2k libressl neon oldlua opengl ssl physics pixman +png +ppm postscript +psd pulseaudio rawphoto scim sdl sound systemd tga tiff tslib v4l valgrind wayland webp X xim xine xpm"
+KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc64 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos ~x86-solaris ~x64-solaris"
 
 REQUIRED_USE="
 	pulseaudio?	( sound )
@@ -33,7 +33,7 @@ REQUIRED_USE="
 	gles?		( !sdl )
 	gles?		( egl )
 	sdl?		( opengl )
-	wayland?	( egl opengl gles )
+	wayland?	( egl !opengl gles )
 	xim?		( X )
 "
 
@@ -67,7 +67,9 @@ RDEPEND="
 	physics? ( >=sci-physics/bullet-2.80 )
 	pixman? ( x11-libs/pixman )
 	png? ( media-libs/libpng:0= )
+	postscript? ( app-text/libspectre:* )
 	pulseaudio? ( media-sound/pulseaudio )
+	rawphoto? ( media-libs/libraw:* )
 	scim? ( app-i18n/scim )
 	sdl? (
 		media-libs/libsdl2
@@ -99,13 +101,11 @@ RDEPEND="
 		x11-libs/libXScrnSaver
 
 		opengl? (
-			x11-libs/libX11
 			x11-libs/libXrender
 			virtual/opengl
 		)
 
 		gles? (
-			x11-libs/libX11
 			x11-libs/libXrender
 			virtual/opengl
 		)
@@ -113,7 +113,7 @@ RDEPEND="
 	xine? ( >=media-libs/xine-lib-1.1.1 )
 	xpm? ( x11-libs/libXpm )
 
-    media-libs/libraw
+	gnome-base/librsvg
 	sys-apps/dbus
 	>=sys-apps/util-linux-2.20.0
 	sys-libs/zlib
@@ -166,7 +166,6 @@ DEPEND="
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
-    eapply_user
 	enlightenment_src_prepare
 
 	# Remove stupid sleep command.
@@ -196,7 +195,6 @@ src_configure() {
 		$(use_with X x)
 		--with-opengl=$(usex opengl full $(usex gles es none))
 		--with-glib=$(usex glib)
-		--with-opengl=es
 		--enable-i-really-know-what-i-am-doing-and-that-this-will-probably-break-things-and-i-will-fix-them-myself-and-send-patches-abb
 
 		$(use_enable bmp image-loader-bmp)
@@ -227,15 +225,17 @@ src_configure() {
 		$(use_enable pixman pixman-image-scale-sample)
 		$(use_enable png image-loader-png)
 		$(use_enable ppm image-loader-pmaps)
+		$(use_enable postscript spectre)
 		$(use_enable psd image-loader-psd)
 		$(use_enable pulseaudio)
+		$(use_enable rawphoto libraw)
 		$(use_enable scim)
 		$(use_enable sdl)
 		$(use_enable sound audio)
 		$(use_enable systemd)
-		$(use_enable tga image-loader-tga)
 		$(use_enable tiff image-loader-tiff)
 		$(use_enable tslib)
+		#$(use_enable udisk udisk-mount)
 		$(use_enable v4l v4l2)
 		$(use_enable valgrind)
 		$(use_enable wayland)
@@ -243,19 +243,19 @@ src_configure() {
 		$(use_enable xim)
 		$(use_enable xine)
 		$(use_enable xpm image-loader-xpm)
-        --enable-elput
-        --enable-gl-drm
-		--enable-wayland
 		--enable-cserve
 		--enable-image-loader-generic
 		--enable-image-loader-jpeg
+		--enable-image-loader-svg
 
+		#--disable-eeze-mount
 		--disable-tizen
 		--disable-gesture
 		--disable-gstreamer
 		--enable-xinput2
-		--disable-xinput22
-		--enable-multisense
+		#--disable-xinput22
+		--enable-elput
+		--disable-multisense
 		--enable-libmount
 
 		# external lz4 support currently broken because of unstable ABI/API
