@@ -7,7 +7,6 @@ kde-apps/ark
 kde-apps/dolphin:5
 kde-apps/filelight
 kde-apps/konsole
-kde-plasma/kstyles
 kde-frameworks/solid
 media-fonts/corefonts
 media-fonts/dejavu
