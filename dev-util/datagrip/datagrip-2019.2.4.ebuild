@@ -29,10 +29,9 @@ src_install() {
 	insinto /opt/${PN}
 	doins -r *
 
-	fperms a+x /opt/${PN}/bin/datagrip.sh || die "Chmod failed"
-	fperms a+x /opt/${PN}/bin/fsnotifier || die "Chmod failed"
-	fperms a+x /opt/${PN}/bin/fsnotifier64 || die "Chmod failed"
-	fperms a+x /opt/${PN}/bin/inspect.sh || die "Chmod failed"
+	fperms a+x /opt/${PN}/bin/fsnotifier* || die "Chmod failed"
+	fperms a+x /opt/${PN}/bin/*.sh || die "Chmod failed"
+  fperms a+x /opt/${PN}/jbr/bin/* || die "Chmod failed"
 	dosym /opt/${PN}/bin/datagrip.sh /usr/bin/${PN}
 
 	mv "bin/product.png" "bin/${PN}.png"
