@@ -2,8 +2,6 @@
 @plab-network-base
 app-editors/scite
 dev-util/bcpp
-dev-util/diffuse
-kde-apps/ark
 kde-apps/dolphin:5
 kde-apps/filelight
 kde-apps/konsole
