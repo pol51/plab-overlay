@@ -12,7 +12,7 @@ SRC_URI="https://dl.google.com/android/repository/${PN}-r${PV}-linux-x86_64.zip"
 
 LICENSE="android"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="amd64"
 IUSE=""
 RESTRICT="mirror strip installsources test"
 
