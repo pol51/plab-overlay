@@ -2,7 +2,6 @@ app-admin/eclean-kernel
 app-admin/sudo
 app-misc/screen
 app-portage/eix
-app-portage/euscan
 app-portage/gentoolkit
 app-portage/layman
 app-portage/smart-live-rebuild
