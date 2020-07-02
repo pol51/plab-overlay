@@ -12,8 +12,8 @@ if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/swaywm/${PN}.git"
 else
-	MY_PV=v${PV/_rc/-rc}
-	SRC_URI="https://github.com/swaywm/${PN}/archive/${MY_PV}.tar.gz -> ${P}.tar.gz"
+	MY_PV=${PV/_rc/-rc}
+	SRC_URI="https://github.com/swaywm/${PN}/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
 	S="${WORKDIR}/${PN}-${MY_PV}"
 fi
