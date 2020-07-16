@@ -47,9 +47,6 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-# Patch is in upstream master. Probably drop on 0.10.2 or 0.11.
-PATCHES=("${FILESDIR}"/${PN}-gcc-10.patch)
-
 src_configure() {
 	# xcb-util-errors is not on Gentoo Repository (and upstream seems inactive?)
 	local emesonargs=(
