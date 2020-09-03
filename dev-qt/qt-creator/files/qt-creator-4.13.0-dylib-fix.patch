@@ -1,0 +1,59 @@
+From 17ad68c4e899ce1eb1b60604296003ccc9c0abe1 Mon Sep 17 00:00:00 2001
+From: Paul Labedan <plabedan@wyplay.com>
+Date: Thu, 3 Sep 2020 12:13:01 +0200
+Subject: [PATCH 1/2] dylib fix
+
+---
+ src/shared/clang/clang_installation.pri | 29 ++++++++++++++-----------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
+
+diff --git a/src/shared/clang/clang_installation.pri b/src/shared/clang/clang_installation.pri
+index 2ef2cb42..27c21aab 100644
+--- a/src/shared/clang/clang_installation.pri
++++ b/src/shared/clang/clang_installation.pri
+@@ -206,19 +206,6 @@ isEmpty(LLVM_VERSION) {
+         }
+     }
+ 
+-    isEmpty(QTC_CLANG_BUILDMODE_MISMATCH)|!equals(QTC_CLANG_BUILDMODE_MISMATCH, 1) {
+-        CLANGFORMAT_MAIN_HEADER = $$LLVM_INCLUDEPATH/clang/Format/Format.h
+-        exists($$CLANGFORMAT_MAIN_HEADER) {
+-            CLANGFORMAT_LIBS=-lclangFormat -lclangToolingInclusions -lclangToolingCore -lclangRewrite -lclangLex -lclangBasic
+-            ALL_CLANG_LIBS=-lclangFormat -lclangToolingInclusions -lclangTooling -lclangToolingCore \
+-                           -lclangRewrite -lclangIndex -lclangFrontend -lclangParse -lclangSerialization \
+-                           -lclangSema -lclangEdit -lclangAnalysis -lclangDriver -lclangDynamicASTMatchers \
+-                           -lclangASTMatchers -lclangAST -lclangLex -lclangBasic
+-            win32:CLANGFORMAT_LIBS += -lversion
+-        }
+-    }
+-    win32:ALL_CLANG_LIBS += -lversion
+-
+     LIBCLANG_MAIN_HEADER = $$LLVM_INCLUDEPATH/clang-c/Index.h
+     !exists($$LIBCLANG_MAIN_HEADER) {
+         $$llvmWarningOrError(\
+@@ -239,6 +226,22 @@ isEmpty(LLVM_VERSION) {
+     LIBCLANG_LIBS += $${CLANG_LIB}
+ 
+     isEmpty(QTC_CLANG_BUILDMODE_MISMATCH)|!equals(QTC_CLANG_BUILDMODE_MISMATCH, 1) {
++        CLANGFORMAT_MAIN_HEADER = $$LLVM_INCLUDEPATH/clang/Format/Format.h
++        exists($$CLANGFORMAT_MAIN_HEADER) {
++            exists($${LLVM_LIBDIR}/libclangFormat.so*)|exists($${LLVM_LIBDIR}/libclangFormat.dylib) {
++                CLANGFORMAT_LIBS=-lclangFormat -lclangToolingInclusions -lclangToolingCore -lclangRewrite -lclangLex -lclangBasic
++                ALL_CLANG_LIBS=-lclangFormat -lclangToolingInclusions -lclangTooling -lclangToolingCore \
++                           -lclangRewrite -lclangIndex -lclangFrontend -lclangParse -lclangSerialization \
++                           -lclangSema -lclangEdit -lclangAnalysis -lclangDriver -lclangDynamicASTMatchers \
++                           -lclangASTMatchers -lclangAST -lclangLex -lclangBasic
++                win32:CLANGFORMAT_LIBS += -lversion
++                win32:ALL_CLANG_LIBS += -lversion
++            } else {
++                CLANGFORMAT_LIBS=-lclang-cpp
++                ALL_CLANG_LIBS=-lclang-cpp
++            }
++        }
++
+         QTC_ENABLE_CLANG_REFACTORING=$$(QTC_ENABLE_CLANG_REFACTORING)
+         !isEmpty(QTC_ENABLE_CLANG_REFACTORING) {
+             !contains(QMAKE_DEFAULT_LIBDIRS, $$LLVM_LIBDIR): LIBTOOLING_LIBS = -L$${LLVM_LIBDIR}
+-- 
+2.26.2
+
