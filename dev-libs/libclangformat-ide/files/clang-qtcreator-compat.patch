@@ -1,12 +1,9 @@
-From fa1b9053729ec6a4425a44ec5502dd388928274a Mon Sep 17 00:00:00 2001
+From 9b992a0f7f160dd6c75f20a4dcfcf7c60a4894df Mon Sep 17 00:00:00 2001
 From: Ivan Donchevskii <ivan.donchevskii@qt.io>
 Date: Fri, 12 Oct 2018 08:19:25 +0200
-Subject: [PATCH] [clang-format] Introduce the flag which allows not to shrink
- lines
+Subject: [clang-format] Introduce the flag which allows not to shrink lines
 
---------------------------------------------------------------------------
-* https://reviews.llvm.org/D53072
---------------------------------------------------------------------------
+https://reviews.llvm.org/D53072
 
 Currently there's no way to prevent to lines optimization even
 if you have intentionally put <CR> to split the line.
@@ -16,24 +13,28 @@ which you can enable in special cases (for me it's an IDE related use case).
 
 Revert this change if upstream clang-format offers better solution.
 
-This is a cherry pick from commits b748c82e3664c2e2e3d29645ede472d87b8cde63
-and 1817513d4f3a2e4e26be124dbe395340f798fd51.
+Reviewed-by; Marco Bubke <marco.bubke@qt.io>
 
-Change-Id: I9d2935b937bb68ea8dc59fac8463718475e9c080
-Reviewed-by: Orgad Shaneh <orgads@gmail.com>
+Cherry picked from commit
+clang.git/fa1b9053729ec6a4425a44ec5502dd388928274a.
+
+Change-Id: I92296dd177c811593ebba7d4b5c3c5f472af10a2
+Reviewed-by: Cristian Adam <cristian.adam@qt.io>
 ---
- include/clang/Format/Format.h         | 13 +++++++++++++
- lib/Format/Format.cpp                 |  4 ++++
- lib/Format/UnwrappedLineFormatter.cpp |  9 +++++----
- lib/Format/UnwrappedLineParser.cpp    |  2 ++
- unittests/Format/FormatTest.cpp       | 16 ++++++++++++++++
+ clang/include/clang/Format/Format.h         | 13 +++++++++++++
+ clang/lib/Format/Format.cpp                 |  4 ++++
+ clang/lib/Format/UnwrappedLineFormatter.cpp |  9 +++++----
+ clang/lib/Format/UnwrappedLineParser.cpp    |  2 ++
+ clang/unittests/Format/FormatTest.cpp       | 16 ++++++++++++++++
  5 files changed, 40 insertions(+), 4 deletions(-)
 
-diff --git a/include/clang/Format/Format.h b/include/clang/Format/Format.h
-index cb37b0c890c..b9c4df3d1af 100644
---- a/include/clang/Format/Format.h
-+++ b/include/clang/Format/Format.h
-@@ -22,6 +22,8 @@
+NB! Line numbers adjusted manually to get perfect patch.
+
+diff --git a/clang/include/clang/Format/Format.h b/clang/include/clang/Format/Format.h
+index 3549ec9e..1e6a4869 100755
+--- a/clang/include/clang/Format/Format.h
++++ b/clang/include/clang/Format/Format.h
+@@ -21,6 +21,8 @@
  #include "llvm/Support/Regex.h"
  #include <system_error>
  
@@ -42,9 +43,9 @@ index cb37b0c890c..b9c4df3d1af 100644
  namespace llvm {
  namespace vfs {
  class FileSystem;
-@@ -1200,6 +1202,16 @@ struct FormatStyle {
-   /// \endcode
+@@ -1666,6 +1668,16 @@ struct FormatStyle {
    bool JavaScriptWrapImports;
+   // clang-format on
  
 +  /// If true, no line breaks are optimized out (works only with ColumnLimit = 0)
 +  /// \code
@@ -59,7 +60,7 @@ index cb37b0c890c..b9c4df3d1af 100644
    /// If true, the empty line at the start of blocks is kept.
    /// \code
    ///    true:                                  false:
-@@ -1767,6 +1779,7 @@ struct FormatStyle {
+@@ -2358,6 +2370,7 @@ struct FormatStyle {
             JavaImportGroups == R.JavaImportGroups &&
             JavaScriptQuotes == R.JavaScriptQuotes &&
             JavaScriptWrapImports == R.JavaScriptWrapImports &&
@@ -67,11 +68,11 @@ index cb37b0c890c..b9c4df3d1af 100644
             KeepEmptyLinesAtTheStartOfBlocks ==
                 R.KeepEmptyLinesAtTheStartOfBlocks &&
             MacroBlockBegin == R.MacroBlockBegin &&
-diff --git a/lib/Format/Format.cpp b/lib/Format/Format.cpp
-index 2c4f8760540..61ea88626ee 100644
---- a/lib/Format/Format.cpp
-+++ b/lib/Format/Format.cpp
-@@ -417,6 +417,8 @@ template <> struct MappingTraits<FormatStyle> {
+diff --git a/clang/lib/Format/Format.cpp b/clang/lib/Format/Format.cpp
+index 0d277a64..7875838b 100644
+--- a/clang/lib/Format/Format.cpp
++++ b/clang/lib/Format/Format.cpp
+@@ -532,6 +532,8 @@ template <> struct MappingTraits<FormatStyle> {
      IO.mapOptional("JavaImportGroups", Style.JavaImportGroups);
      IO.mapOptional("JavaScriptQuotes", Style.JavaScriptQuotes);
      IO.mapOptional("JavaScriptWrapImports", Style.JavaScriptWrapImports);
@@ -80,7 +81,7 @@ index 2c4f8760540..61ea88626ee 100644
      IO.mapOptional("KeepEmptyLinesAtTheStartOfBlocks",
                     Style.KeepEmptyLinesAtTheStartOfBlocks);
      IO.mapOptional("MacroBlockBegin", Style.MacroBlockBegin);
-@@ -678,6 +680,7 @@ FormatStyle getLLVMStyle() {
+@@ -889,6 +891,7 @@ FormatStyle getLLVMStyle(FormatStyle::LanguageKind Language) {
    LLVMStyle.JavaScriptWrapImports = true;
    LLVMStyle.TabWidth = 8;
    LLVMStyle.MaxEmptyLinesToKeep = 1;
@@ -88,19 +89,19 @@ index 2c4f8760540..61ea88626ee 100644
    LLVMStyle.KeepEmptyLinesAtTheStartOfBlocks = true;
    LLVMStyle.NamespaceIndentation = FormatStyle::NI_None;
    LLVMStyle.ObjCBinPackProtocolList = FormatStyle::BPS_Auto;
-@@ -745,6 +748,7 @@ FormatStyle getGoogleStyle(FormatStyle::LanguageKind Language) {
-       {"^<ext/.*\\.h>", 2}, {"^<.*\\.h>", 1}, {"^<.*", 2}, {".*", 3}};
+@@ -973,6 +976,7 @@ FormatStyle getGoogleStyle(FormatStyle::LanguageKind Language) {
    GoogleStyle.IncludeStyle.IncludeIsMainRegex = "([-_](test|unittest))?$";
+   GoogleStyle.IncludeStyle.IncludeBlocks = tooling::IncludeStyle::IBS_Regroup;
    GoogleStyle.IndentCaseLabels = true;
 +  GoogleStyle.KeepLineBreaksForNonEmptyLines = false;
    GoogleStyle.KeepEmptyLinesAtTheStartOfBlocks = false;
    GoogleStyle.ObjCBinPackProtocolList = FormatStyle::BPS_Never;
    GoogleStyle.ObjCSpaceAfterProperty = false;
-diff --git a/lib/Format/UnwrappedLineFormatter.cpp b/lib/Format/UnwrappedLineFormatter.cpp
-index 6b6a9aff461..c88efbc6867 100644
---- a/lib/Format/UnwrappedLineFormatter.cpp
-+++ b/lib/Format/UnwrappedLineFormatter.cpp
-@@ -684,7 +684,7 @@ public:
+diff --git a/clang/lib/Format/UnwrappedLineFormatter.cpp b/clang/lib/Format/UnwrappedLineFormatter.cpp
+index 22f27a66..5060b04f 100644
+--- a/clang/lib/Format/UnwrappedLineFormatter.cpp
++++ b/clang/lib/Format/UnwrappedLineFormatter.cpp
+@@ -732,7 +732,7 @@ public:
    LineFormatter(ContinuationIndenter *Indenter, WhitespaceManager *Whitespaces,
                  const FormatStyle &Style,
                  UnwrappedLineFormatter *BlockFormatter)
@@ -109,7 +110,7 @@ index 6b6a9aff461..c88efbc6867 100644
          BlockFormatter(BlockFormatter) {}
    virtual ~LineFormatter() {}
  
-@@ -727,7 +727,8 @@ protected:
+@@ -773,7 +773,8 @@ protected:
        // assert so that we can simply call this function for all tokens.
        return true;
  
@@ -119,7 +120,7 @@ index 6b6a9aff461..c88efbc6867 100644
        int AdditionalIndent = State.Stack.back().Indent -
                               Previous.Children[0]->Level * Style.IndentWidth;
  
-@@ -772,10 +773,10 @@ protected:
+@@ -819,10 +820,10 @@ protected:
    }
  
    ContinuationIndenter *Indenter;
@@ -131,7 +132,7 @@ index 6b6a9aff461..c88efbc6867 100644
    UnwrappedLineFormatter *BlockFormatter;
  };
  
-@@ -798,7 +799,7 @@ public:
+@@ -845,7 +846,7 @@ public:
      while (State.NextToken) {
        bool Newline =
            Indenter->mustBreak(State) ||
@@ -140,11 +141,11 @@ index 6b6a9aff461..c88efbc6867 100644
        unsigned Penalty = 0;
        formatChildren(State, Newline, /*DryRun=*/false, Penalty);
        Indenter->addTokenToState(State, Newline, /*DryRun=*/false);
-diff --git a/lib/Format/UnwrappedLineParser.cpp b/lib/Format/UnwrappedLineParser.cpp
-index 3cd3c8f9cdf..3aa30c7cb3f 100644
---- a/lib/Format/UnwrappedLineParser.cpp
-+++ b/lib/Format/UnwrappedLineParser.cpp
-@@ -2554,6 +2554,8 @@ void UnwrappedLineParser::nextToken(int LevelDifference) {
+diff --git a/clang/lib/Format/UnwrappedLineParser.cpp b/clang/lib/Format/UnwrappedLineParser.cpp
+index a3738642..f80c1116 100644
+--- a/clang/lib/Format/UnwrappedLineParser.cpp
++++ b/clang/lib/Format/UnwrappedLineParser.cpp
+@@ -2942,6 +2942,8 @@ void UnwrappedLineParser::nextToken(int LevelDifference) {
    else
      readTokenWithJavaScriptASI();
    FormatTok->Previous = Previous;
@@ -153,11 +154,11 @@ index 3cd3c8f9cdf..3aa30c7cb3f 100644
  }
  
  void UnwrappedLineParser::distributeComments(
-diff --git a/unittests/Format/FormatTest.cpp b/unittests/Format/FormatTest.cpp
-index c05fceb4766..38906d9ee31 100644
---- a/unittests/Format/FormatTest.cpp
-+++ b/unittests/Format/FormatTest.cpp
-@@ -385,6 +385,22 @@ TEST_F(FormatTest, RemovesEmptyLines) {
+diff --git a/clang/unittests/Format/FormatTest.cpp b/clang/unittests/Format/FormatTest.cpp
+index 17d302f0..48971623 100644
+--- a/clang/unittests/Format/FormatTest.cpp
++++ b/clang/unittests/Format/FormatTest.cpp
+@@ -393,6 +393,22 @@ TEST_F(FormatTest, RemovesEmptyLines) {
                     "  void funk() {}\n"
                     "};",
                     Style));
