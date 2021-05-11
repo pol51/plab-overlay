@@ -67,6 +67,14 @@ CDEPEND="
 	>=dev-qt/qtxml-${QT_PV}
 	kde-frameworks/syntax-highlighting:5
 	clang? (
+		|| (
+			( sys-devel/clang:11
+				dev-libs/libclangformat-ide:11 )
+			( sys-devel/clang:10
+				dev-libs/libclangformat-ide:10 )
+			( sys-devel/clang:9
+				dev-libs/libclangformat-ide:9 )
+		)
 		<sys-devel/clang-$((LLVM_MAX_SLOT + 1)):=
 	)
 	designer? ( >=dev-qt/designer-${QT_PV} )
