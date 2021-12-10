@@ -24,7 +24,7 @@ RDEPEND="
 		dev-libs/nettle
 		media-libs/fontconfig
 		media-libs/freetype
-		media-libs/libpng:1.2
+		media-libs/libpng
 		net-dns/libidn
 		net-libs/gnutls
 		sys-apps/keyutils
