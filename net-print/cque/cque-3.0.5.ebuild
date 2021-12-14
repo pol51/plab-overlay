@@ -30,7 +30,7 @@ RDEPEND="
 		sys-apps/keyutils
 		sys-libs/e2fsprogs-libs
 		sys-libs/zlib
-		virtual/jpeg:62
+		virtual/jpeg-compat:62
 		x11-libs/libICE
 		x11-libs/libSM
 		x11-libs/libX11
