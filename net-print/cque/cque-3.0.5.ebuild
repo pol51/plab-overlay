@@ -28,7 +28,6 @@ RDEPEND="
 		net-dns/libidn
 		net-libs/gnutls
 		sys-apps/keyutils
-		sys-libs/e2fsprogs-libs
 		sys-libs/zlib
 		virtual/jpeg-compat:62
 		x11-libs/libICE
