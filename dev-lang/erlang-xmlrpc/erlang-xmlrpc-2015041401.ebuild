@@ -1,4 +1,4 @@
-EAPI="5"
+EAPI="6"
 
 inherit eutils git-r3
 
@@ -24,6 +24,6 @@ src_compile() {
 }
 
 src_install() {
-  insinto ${EPREFIX}/usr/$(get_libdir)/erlang/lib/xmlrpc-${PV}
-  doins ebin/*
+	insinto ${EPREFIX}/usr/$(get_libdir)/erlang/lib/xmlrpc-${PV}
+	doins ebin/*
 }
