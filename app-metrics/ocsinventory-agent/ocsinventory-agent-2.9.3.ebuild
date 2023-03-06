@@ -44,7 +44,7 @@ RDEPEND="dev-perl/XML-Simple
 	ssl? ( dev-perl/Crypt-SSLeay )"
 
 DEPEND="${RDEPEND}
-	virtual/perl-Module-Build
+	dev-perl/Module-Build
 	dev-lang/perl
 	sys-devel/make"
 
