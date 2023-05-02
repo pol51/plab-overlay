@@ -10,7 +10,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8,9} )
+PYTHON_COMPAT=( python3_{9,10} )
 inherit python-single-r1
 
 DESCRIPTION="Emscripten is a complete compiler toolchain to WebAssembly, using LLVM"
@@ -22,7 +22,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 RESTRICT="network-sandbox test"
-MY_LLVM_VERSION=13
+MY_LLVM_VERSION=15
 
 RDEPEND="
 	>=dev-util/binaryen-101
@@ -34,11 +34,6 @@ RDEPEND="
 BDEPEND="
 	net-libs/nodejs
 "
-
-PATCHES=(
-	"${FILESDIR}"/emscripten-2.0.8-wasm-ld.patch
-	"${FILESDIR}"/emscripten-3.0.0-py-runner.patch
-)
 
 src_prepare() {
 	default
