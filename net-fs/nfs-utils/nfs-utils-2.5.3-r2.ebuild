@@ -1,49 +1,42 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=8
+EAPI=7
 
 inherit autotools linux-info systemd
 
 DESCRIPTION="NFS client and server daemons"
-HOMEPAGE="http://linux-nfs.org/ https://git.linux-nfs.org/?p=steved/nfs-utils.git"
+HOMEPAGE="http://linux-nfs.org/"
 
-if [[ ${PV} == *_rc* ]] ; then
+if [[ "${PV}" = *_rc* ]] ; then
 	MY_PV="$(ver_rs 1- -)"
 	SRC_URI="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=snapshot;h=refs/tags/${PN}-${MY_PV};sf=tgz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${PN}-${MY_PV}"
 else
 	SRC_URI="mirror://sourceforge/nfs/${P}.tar.bz2"
-	KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv ~s390 sparc x86"
+	KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 fi
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="caps junction kerberos ldap +libmount nfsdcld +nfsidmap +nfsv4 nfsv41 sasl selinux tcpd +uuid"
+IUSE="caps ipv6 junction kerberos ldap +libmount nfsdcld +nfsidmap +nfsv4 nfsv41 selinux tcpd +uuid"
 REQUIRED_USE="kerberos? ( nfsv4 )"
-# bug #315573
-RESTRICT="test"
+RESTRICT="test" #315573
 
 # kth-krb doesn't provide the right include
 # files, and nfs-utils doesn't build against heimdal either,
 # so don't depend on virtual/krb.
 # (04 Feb 2005 agriffis)
 COMMON_DEPEND="
+	>=dev-db/sqlite-3.3
 	dev-libs/libxml2
 	net-libs/libtirpc:=
 	>=net-nds/rpcbind-0.2.4
 	sys-fs/e2fsprogs
 	caps? ( sys-libs/libcap )
-	ldap? (
-		net-nds/openldap:=
-		sasl? (
-			app-crypt/mit-krb5
-			dev-libs/cyrus-sasl:2
-		)
-	)
+	ldap? ( net-nds/openldap )
 	libmount? ( sys-apps/util-linux )
 	nfsv4? (
-		dev-db/sqlite:3
 		dev-libs/libevent:=
 		>=sys-apps/keyutils-1.5.9:=
 		kerberos? (
@@ -61,6 +54,8 @@ DEPEND="${COMMON_DEPEND}
 "
 RDEPEND="${COMMON_DEPEND}
 	!net-libs/libnfsidmap
+	!net-nds/portmap
+	!<sys-apps/openrc-0.13.9
 	selinux? (
 		sec-policy/selinux-rpc
 		sec-policy/selinux-rpcbind
@@ -71,13 +66,10 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-2.5.2-no-werror.patch
-)
+PATCHES=( "${FILESDIR}"/${PN}-2.5.2-no-werror.patch )
 
 pkg_setup() {
 	linux-info_pkg_setup
-
 	if use nfsv4 && ! use nfsdcld && linux_config_exists && ! linux_chkconfig_present CRYPTO_MD5 ; then
 		ewarn "Your NFS server will be unable to track clients across server restarts!"
 		ewarn "Please enable the \"${HILITE}nfsdcld${NORMAL}\" USE flag to install the nfsdcltrack usermode"
@@ -97,14 +89,8 @@ src_prepare() {
 }
 
 src_configure() {
-	# Our DEPEND forces this.
-	export libsqlite3_cv_is_recent=yes
+	export libsqlite3_cv_is_recent=yes # Our DEPEND forces this.
 	export ac_cv_header_keyutils_h=$(usex nfsidmap)
-
-	# SASL is consumed in a purely automagic way
-	export ac_cv_header_sasl_h=no
-	export ac_cv_header_sasl_sasl_h=$(usex sasl)
-
 	local myeconfargs=(
 		--disable-static
 		--with-statedir="${EPREFIX}"/var/lib/nfs
@@ -115,7 +101,7 @@ src_configure() {
 		--with-systemd="$(systemd_get_systemunitdir)"
 		--without-gssglue
 		$(use_enable caps)
-		--enable-ipv6
+		$(use_enable ipv6)
 		$(use_enable junction)
 		$(use_enable kerberos gss)
 		$(use_enable kerberos svcgss)
@@ -131,9 +117,8 @@ src_configure() {
 }
 
 src_compile() {
-	# Remove compiled files bundled in the tarball
+	# remove compiled files bundled in the tarball
 	emake clean
-
 	default
 }
 
@@ -155,7 +140,7 @@ src_install() {
 		insinto /etc
 		doins support/nfsidmap/idmapd.conf
 
-		# Install a config file for idmappers in newer kernels. bug #415625
+		# Install a config file for idmappers in newer kernels. #415625
 		insinto /etc/request-key.d
 		echo 'create id_resolver * * /usr/sbin/nfsidmap -t 600 %k %d' > id_resolver.conf
 		doins id_resolver.conf
@@ -174,29 +159,23 @@ src_install() {
 	for f in nfs nfsclient rpc.statd "${list[@]}" ; do
 		newinitd "${FILESDIR}"/${f}.initd ${f}
 	done
-
-	# Nuke after 2015/08/01
-	newinitd "${FILESDIR}"/nfsmount.initd-1.3.1 nfsmount
+	newinitd "${FILESDIR}"/nfsmount.initd-1.3.1 nfsmount # Nuke after 2015/08/01
 	for f in nfs nfsclient ; do
 		newconfd "${FILESDIR}"/${f}.confd ${f}
 	done
-
-	# bug #234132
 	sed -i \
 		-e "/^NFS_NEEDED_SERVICES=/s:=.*:=\"${opt_need}\":" \
-		"${ED}"/etc/conf.d/nfs || die
+		"${ED}"/etc/conf.d/nfs || die #234132
 
 	local systemd_systemunitdir="$(systemd_get_systemunitdir)"
 	sed -i \
 		-e 's:/usr/sbin/rpc.statd:/sbin/rpc.statd:' \
 		"${ED}${systemd_systemunitdir}"/* || die
 
-	# bug #368505
-	keepdir /var/lib/nfs
-	# bug #603628
-	keepdir /var/lib/nfs/v4recovery
+	keepdir /var/lib/nfs #368505
+	keepdir /var/lib/nfs/v4recovery #603628
 
-	# No static archives
+	# no static archives
 	find "${ED}" -name '*.la' -delete || die
 }
 
