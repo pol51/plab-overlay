@@ -25,12 +25,7 @@ alias less='less -q'
 alias df='df -h'
 alias du='du -h'
 
-alias http-server='python -m SimpleHTTPServer'
-
-# C/C++
-alias bcpp='bcpp -s -i 2'
-
-alias make='make -j$(echo "scale=0;$(nproc)*1.5/1" | bc)'
+alias http-server='python3 -m http.server'
 
 # Gentoo
 alias emerge='emerge --tree --jobs=$(A=$(nproc) B=$(( A / 2 )); echo $(( B < 1 ? 1 : B )))'
@@ -145,7 +140,7 @@ unsetopt hup
 # history
 ################################################################################
 
-setopt HISTIGNOREDUPS HISTIGNORESPACE EXTENDED_HISTORY
-export HISTORY=10000
-export SAVEHIST=10000
 export HISTFILE=$HOME/.history
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+setopt HISTIGNOREDUPS HISTIGNORESPACE EXTENDED_HISTORY INC_APPEND_HISTORY

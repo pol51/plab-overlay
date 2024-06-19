@@ -1,5 +1,4 @@
-EAPI=6
-inherit eutils
+EAPI=8
 
 DESCRIPTION="zsh pol's config"
 
