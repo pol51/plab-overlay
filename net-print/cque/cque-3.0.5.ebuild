@@ -1,12 +1,12 @@
-EAPI=6
+EAPI=7
 
-inherit unpacker versionator
+inherit unpacker
 
 DESCRIPTION="Canon CQue Linux Driver"
 HOMEPAGE="http://software.canon-europe.com/"
 SRC_URI="http://files.canon-europe.com/files/soft45523/Software/CQue_v${PV}_Linux_32_64_EN.tar.zip"
 
-MY_PV="$(get_version_component_range 1-2)-$(get_version_component_range 3)"
+MY_PV="$(ver_cut 1-2)-$(ver_cut 3)"
 
 LICENSE=""
 SLOT="0"
