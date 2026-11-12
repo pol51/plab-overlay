@@ -767,6 +767,9 @@ FILECAPS=(
 src_install() {
 	cargo_src_install
 
+	# Only the pcap group can run the binary. fcaps keeps this group.
+	fowners root:pcap /usr/bin/sniffnet
+
 	domenu resources/packaging/linux/sniffnet.desktop
 
 	local size
