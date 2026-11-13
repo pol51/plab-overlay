@@ -1,6 +1,6 @@
-EAPI="6"
+EAPI="8"
 
-inherit eutils git-r3
+inherit git-r3 multilib
 
 DESCRIPTION="Erlang xmlrpc"
 HOMEPAGE="http://www.xmlrpc.org/"
