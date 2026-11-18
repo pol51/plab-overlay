@@ -19,18 +19,29 @@ KEYWORDS="~amd64"
 DEPEND="
 	>=dev-qt/qt-creator-19.0.0[plugin-dev]
 	dev-qt/qtbase:6[network,widgets]
+	dev-qt/qthttpserver:6
 	dev-qt/qtsvg:6
 "
 RDEPEND="${DEPEND}
 	dev-util/claude-code
 "
 
+src_prepare() {
+	# Qt Creator 20 links to Qt6::HttpServer, so find it before QtCreator.
+	sed -i 's/^find_package(QtCreator REQUIRED/find_package(Qt6 REQUIRED COMPONENTS HttpServer)\n&/' \
+		CMakeLists.txt || die
+	cmake_src_prepare
+}
+
 src_install() {
 	cmake_src_install
 
-	# The panel looks for the permission helper next to libQClaude.so.
+	# The plugin does not need its headers.
+	rm -r "${ED}"/usr/include || die
+
+	# The panel looks for the helpers next to libQClaude.so.
 	exeinto /usr/$(get_libdir)/qtcreator/plugins
-	doexe "${BUILD_DIR}"/lib/qtcreator/plugins/qclaude_mcp_permission
+	doexe "${BUILD_DIR}"/$(get_libdir)/qtcreator/plugins/qclaude_{mcp_permission,hook_bridge}
 }
 
 pkg_postinst() {
